@@ -27,6 +27,16 @@ saveButtons.forEach(function(button) {
     localStorage.setItem(timeBlockId, userInput);
   });
 });
+
+// Retrieve and set the saved values from local storage
+for (var i = 1; i <= 24; i++) {
+  var timeBlockId = 'hour-' + i;
+  var savedValue = localStorage.getItem(timeBlockId);
+
+  if (savedValue) {
+    $('#' + timeBlockId + ' .description').val(savedValue);
+  }
+}
   //
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
