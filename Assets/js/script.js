@@ -6,17 +6,26 @@ $(function() {
     currentDayElement.textContent = currentTime;
   }
 
-  // Retrieve the current hour
-  var currentHour = dayjs().format('H');
+  // Retrieve the current hour and AM/PM marker
+  var currentHour = dayjs().format('h');
+  var amPmMarker = dayjs().format('A');
 
   // Apply the "past", "present", or "future" class to each time block
   var timeBlocks = document.querySelectorAll('.time-block');
   timeBlocks.forEach(function(timeBlock) {
-    var timeBlockHour = parseInt(timeBlock.id.split('-')[1]);
+    var timeBlockId = timeBlock.id;
+    var timeBlockHour = parseInt(timeBlockId.split('-')[1]);
+
+    // Convert the time slot IDs to 24-hour format for accurate comparison
+    if (amPmMarker === 'PM' && timeBlockHour !== 12) {
+      timeBlockHour += 12;
+    } else if (amPmMarker === 'AM' && timeBlockHour === 12) {
+      timeBlockHour = 0;
+    }
 
     if (timeBlockHour < currentHour) {
       timeBlock.classList.add('past');
-    } else if (timeBlockHour == currentHour) {
+    } else if (timeBlockHour === currentHour) {
       timeBlock.classList.add('present');
     } else {
       timeBlock.classList.add('future');
