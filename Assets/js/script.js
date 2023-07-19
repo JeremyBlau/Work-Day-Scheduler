@@ -6,22 +6,14 @@ $(function() {
     currentDayElement.textContent = currentTime;
   }
 
-  // Retrieve the current hour and AM/PM marker
-  var currentHour = dayjs().format('h');
-  var amPmMarker = dayjs().format('A');
+  // Retrieve the current hour in 24-hour format
+  var currentHour = parseInt(dayjs().format('H'));
 
   // Apply the "past", "present", or "future" class to each time block
   var timeBlocks = document.querySelectorAll('.time-block');
   timeBlocks.forEach(function(timeBlock) {
     var timeBlockId = timeBlock.id;
     var timeBlockHour = parseInt(timeBlockId.split('-')[1]);
-
-    // Convert the time slot IDs to 24-hour format for accurate comparison
-    if (amPmMarker === 'PM' && timeBlockHour !== 12) {
-      timeBlockHour += 12;
-    } else if (amPmMarker === 'AM' && timeBlockHour === 12) {
-      timeBlockHour = 0;
-    }
 
     if (timeBlockHour < currentHour) {
       timeBlock.classList.add('past');
