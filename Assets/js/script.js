@@ -56,3 +56,16 @@ $(function() {
     });
   });
 });
+  // Apply the "past", "present", or "future" class to each time block
+  var timeBlocks = document.querySelectorAll('.time-block');
+  timeBlocks.forEach(function(timeBlock) {
+    var timeBlockHour = parseInt(timeBlock.id.split('-')[1]);
+
+    if (timeBlockHour < currentHour) {
+      timeBlock.classList.add('past');
+    } else if (timeBlockHour === currentHour) {
+      timeBlock.classList.add('present');
+    } else {
+      timeBlock.classList.add('future');
+    }
+  });
