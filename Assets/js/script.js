@@ -69,3 +69,13 @@ $(function() {
       timeBlock.classList.add('future');
     }
   });
+    // Retrieve and set the saved values from local storage
+    for (var i = 1; i <= 24; i++) {
+      var timeBlockId = 'hour-' + i;
+      var savedValue = localStorage.getItem(timeBlockId);
+  
+      if (savedValue) {
+        $('#' + timeBlockId + ' .description').val(savedValue);
+      }
+    }
+  });
